@@ -12,27 +12,39 @@ DrawPl:
 	add rax, 3
 	mov rdi, rax 
 	call space	
-	mov rdi, 2
+	mov rdi, 1 
+	call drawLine
+	mov rdi, 1
+	call space
+	mov rdi, 1
 	call drawLine
 	mov rdi, 1
 	call newline
 
 	; draw line middle
 	mov rax, [posX]
-	add rax, 2 
+	add rax, 1 
 	mov rdi, rax
 	call space
-	mov rdi, 4
+	mov rdi, 2
+	call drawLine
+	mov rdi, 1
+	call space
+	mov rdi, 1
+	call drawLine
+	mov rdi, 1
+	call space
+	mov rdi, 2
 	call drawLine
 	mov rdi, 1
 	call newline
 
 	;draw line bottom
 	mov rax, [posX]
-	add rax, 1
+	add rax, 2
 	mov rdi, rax
 	call space
-	mov rdi, 6
+	mov rdi, 5 
 	call drawLine
 	mov rdi, 1
 	call newline
