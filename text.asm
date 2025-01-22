@@ -45,15 +45,7 @@ loop:
 	syscall
 
 	; moving player
-	mov rax, [input]
-	cmp rax, 'x' 
-	je end_program
-	cmp rax, 'X' 
-	je end_program
-	cmp rax, 'd' 
-	je right
-	cmp rax, 'a'
-	je left
+	call MovPl
 
 	; repite game
 	jmp loop 
@@ -81,5 +73,17 @@ end_program:
 	mov rax, 60 
 	xor rdi, rdi
 	syscall
+
+MovPl:
+
+	mov rax, [input]
+	cmp rax, 'a'
+	je left
+	cmp rax, 'd'
+	je right
+	cmp rax, 'x'
+	je end_program
+
+	ret
 
 section .note.GNU-stack

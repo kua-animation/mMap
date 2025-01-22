@@ -1,0 +1,3 @@
+make a terminal to bi y 20 and x 180.
+
+gnome-terminal --geometry=180x20

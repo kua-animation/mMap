@@ -1,10 +1,10 @@
 section .text
 	global DrawPl
+	global MovPl
 	extern drawLine
 	extern space
 	extern newline
 	extern posX
-
 DrawPl:
 
 	;draw line top
