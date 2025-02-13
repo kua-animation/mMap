@@ -1,21 +1,10 @@
 section .data
-	hello db "hello world!", 0xA
 	ln db 0xA
 	space db 0x20 
 
 section .text
-	global print
 	global println
 
-print:
-	
-	MOV rax, 1
-	MOV rdi, 1 
-	MOV rsi	, hello
-	MOV rdx, 13
-	syscall
-
-	RET
 println:
 	
 	MOV rbx, rdi

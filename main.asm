@@ -1,16 +1,21 @@
+section .data
+	hello db "Hello x86-64 asm!!", 0xA 
+	hello_len equ $ - hello
+
 section .text
 	global _start
-	extern print
 	extern println
-	extern clear
+	extern block
 
 _start:
-	CALL clear
+	
+	MOV rdi, 5
+	MOV rsi, 4
+	CALL block
 
-	MOV rdi, 4
-	MOV rsi, 5
-	CALL println
-	CALL print
+	MOV rdi, 1
+	MOV rsi, 3
+	CALL block
 
 end_program:
 	MOV rax, 60
