@@ -66,3 +66,5 @@ block:
 	JNZ loop2
 
 	RET
+
+section .note.GNU-stack

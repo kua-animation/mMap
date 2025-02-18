@@ -1,6 +1,8 @@
 section .data
 	ln db 0xA
 	space db 0x20 
+	cle db 0x1B, "c"
+
 
 section .bss
 	printbuf resb 4
@@ -8,11 +10,15 @@ section .bss
 section .text
 	global println
 	global print
+	global clear
 
 println:
 	
 	MOV rbx, rdi
 	MOV r12, rsi
+
+	CMP rbx, 0
+	JE loop2
 
 	loop1:
 
@@ -25,6 +31,9 @@ println:
 	DEC rbx
 	JNZ loop1
 
+	CMP r12, 0
+	JE return
+
 	loop2:
 	
 	MOV rax, 1
@@ -35,6 +44,8 @@ println:
 
 	DEC r12 
 	JNZ loop2
+
+	retunr:
 
 	RET
 
@@ -75,3 +86,15 @@ print:
 	return:
 
 	RET
+
+clear:
+
+	MOV rax, 1
+	MOV rdi, 1
+	MOV rsi, cle
+	MOV rdx, 2
+	syscall
+
+	RET
+
+section .note.GNU-stack
