@@ -1,2 +1,0 @@
-1 paswword 
-0 Hello
