@@ -1,49 +1,46 @@
 section .data
-	char db "x"
-	ln db 0xA
+	rect_char db "x", 0
+	rect_ln db 0xA
 	space db 0x20
-
-section .bss
-	x_pos resb 1
 
 section .text
 	global rect
 
 
 rect:
-
-	MOV rbx, rdi
+	MOV rbx, rsi
+	PUSH r8
 	PUSH rdx
-	PUSH rsi
+	PUSH rdi
 	PUSH rcx
 
-	loop1:
+	.loop1:
 
 	CMP rbx, 0
-	JE Start_2
+	JE .Start_2
 
 	MOV rax, 1
 	MOV rdi, 1
-	MOV rsi, ln
+	MOV rsi, rect_ln
 	MOV rdx, 1
 	syscall
 
 	DEC rbx
-	JNZ loop1
+	JNZ .loop1
 
-	Start_2:
+	.Start_2:
 
 	POP rbx
 
-	loop2:
+	.loop2:
 	
 	POP r12 
 	PUSH r12
 
-	loop3:
+	.loop3:
 	
 	CMP r12, 0
-	JE Start_4
+	JE .Start_4
 	
 	MOV rax, 1
 	MOV rdi, 1
@@ -52,40 +49,42 @@ rect:
 	syscall
 
 	DEC r12
-	JNZ loop3
+	JNZ .loop3
 
-	Start_4:
+	.Start_4:
 
 	POP rax
 	POP r12
+	POP rsi
 	
+	PUSH rsi	
 	PUSH r12 
 	PUSH rax 
 
-	loop4:
+	.loop4:
 
 	MOV rax, 1
 	MOV rdi, 1
-	MOV rsi, char
+;	MOV rsi, rect_char 
 	MOV rdx, 1
 	syscall
 	
 	DEC r12
-	JNZ loop4
+	JNZ .loop4
 
 	MOV rax, 1
 	MOV rdi, 1
-	MOV rsi, ln
+	MOV rsi, rect_ln
 	MOV rdx, 1
 	syscall
 
 	DEC rbx
-	JNZ loop2
+	JNZ .loop2
 
-	POP rax
-	POP rax
-	XOR rax, rax 
-
+	POP rsi
+	POP r8
+	POP rcx
+	
 	RET
 
 section .note.GNU-stack
