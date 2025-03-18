@@ -7,15 +7,20 @@ section .bss
 	x_pos resb 1
 
 section .text
-	global block
+	global rect
 
 
-block:
+rect:
 
 	MOV rbx, rdi
-	MOV [x_pos], rsi
+	PUSH rdx
+	PUSH rsi
+	PUSH rcx
 
 	loop1:
+
+	CMP rbx, 0
+	JE Start_2
 
 	MOV rax, 1
 	MOV rdi, 1
@@ -26,14 +31,20 @@ block:
 	DEC rbx
 	JNZ loop1
 
-	MOV rbx, 3 
+	Start_2:
+
+	POP rbx
 
 	loop2:
-
-	MOV r12, [x_pos]
 	
-	loop3:
+	POP r12 
+	PUSH r12
 
+	loop3:
+	
+	CMP r12, 0
+	JE Start_4
+	
 	MOV rax, 1
 	MOV rdi, 1
 	MOV rsi, space
@@ -43,7 +54,13 @@ block:
 	DEC r12
 	JNZ loop3
 
-	MOV r12, 5 
+	Start_4:
+
+	POP rax
+	POP r12
+	
+	PUSH r12 
+	PUSH rax 
 
 	loop4:
 
@@ -64,6 +81,10 @@ block:
 
 	DEC rbx
 	JNZ loop2
+
+	POP rax
+	POP rax
+	XOR rax, rax 
 
 	RET
 

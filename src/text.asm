@@ -8,31 +8,48 @@ section .text
 	extern println
 	extern print
 	extern clear
+	extern rect
 
 _start:
+
+	CALL clear
+	
+	MOV rdi, delay
+	CALL sleep
 
 	MOV rdi, messig
 	MOV rsi, 16
 	CALL print
 
-	MOV rax, 35
 	MOV rdi, delay
-	MOV rsi, 0
-	syscall
+	CALL sleep
 
 	MOV rdi, Char
 	MOV rsi, 16
 	CALL print
 
-	MOV rax, 35
 	MOV rdi, delay
-	MOV rsi, 0
-	syscall
+	CALL sleep
+	CALL sleep
+
+	MOV rdi, 0
+	MOV rsi, 1
+	MOV rdx, 4
+	MOV rcx, 5
+	CALL rect
+
 
 end_program:
 	MOV rax, 60
 	XOR rdi, rdi
 	syscall	
+
+sleep:
+	MOV rsi, 0
+	MOV rax, 35
+	syscall
+	
+	RET
 
 
 section .note.GNU-stack
