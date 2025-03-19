@@ -1,5 +1,4 @@
 section .data
-	rect_char db "x", 0
 	rect_ln db 0xA
 	space db 0x20
 
@@ -8,6 +7,7 @@ section .text
 
 
 rect:
+
 	MOV rbx, rsi
 	PUSH r8
 	PUSH rdx
@@ -17,7 +17,7 @@ rect:
 	.loop1:
 
 	CMP rbx, 0
-	JE .Start_2
+	JE .Start
 
 	MOV rax, 1
 	MOV rdi, 1
@@ -28,7 +28,7 @@ rect:
 	DEC rbx
 	JNZ .loop1
 
-	.Start_2:
+	.Start:
 
 	POP rbx
 
@@ -65,7 +65,6 @@ rect:
 
 	MOV rax, 1
 	MOV rdi, 1
-;	MOV rsi, rect_char 
 	MOV rdx, 1
 	syscall
 	

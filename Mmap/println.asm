@@ -10,8 +10,8 @@ section .text
 
 println:
 	
-	MOV rbx, rdi
-	MOV r12, rsi
+	PUSH rdi
+	MOV rbx, rsi
 
 	CMP rbx, 0
 	JE loop2
@@ -27,7 +27,9 @@ println:
 	DEC rbx
 	JNZ loop1
 
-	CMP r12, 0
+	POP rbx
+
+	CMP rbx, 0
 	JE return
 
 	loop2:
@@ -38,7 +40,7 @@ println:
 	MOV rdx, 1
 	syscall
 
-	DEC r12 
+	DEC rbx 
 	JNZ loop2
 
 	return:
