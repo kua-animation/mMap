@@ -1,18 +1,7 @@
-section .data
-	Char db "Dialog/char.txt", 0
-	messig db "Dialog/di.txt", 0
-	messig2 db "Dialog/di2.txt", 0
-	delay dq 0, 700000000
-
-section .bss
-	mes resb 4
-
 section .text
 	global _start
-	extern println
-	extern print
-	extern clear
-	extern rect
+	extern println, print, clear, rect, line, sleep
+	extern up, down, left, right
 
 _start:
 
@@ -41,9 +30,10 @@ _start:
 	MOV rdx, 4
 	syscall
 
-	MOV rdi, messig2
-	MOV rsi, 16*2
-	CALL print
+	MOV rdi, delay
+	CALL sleep
+
+	CALL clear
 	
 	MOV rdi, delay
 	CALL sleep
@@ -69,8 +59,25 @@ _start:
 	MOV r8, mes
 	CALL rect
 
+	MOV rdi, 2
+	MOV rsi, 0
+	MOV rdx, 4
+	MOV rcx, 1
+	MOV r8, mes
+	CALL line
+
 	MOV rdi, delay
 	CALL sleep
+
+	MOV rdi, 6
+	CALL up
+
+	MOV rdi, 0
+	MOV rsi, 0
+	MOV rdx, 4
+	MOV rcx, 8
+	MOV r8, a
+	CALL rect
 
 
 end_program:
@@ -78,12 +85,15 @@ end_program:
 	XOR rdi, rdi
 	syscall	
 
-sleep:
-	MOV rsi, 0
-	MOV rax, 35
-	syscall
-	
-	RET
+section .data
+	Char db "Dialog/char.txt", 0
+	messig db "Dialog/di.txt", 0
+	delay dq 0, 700000000
+	a db 0x41
+
+section .bss
+	mes resb 4
+	time resb 16
 
 
 section .note.GNU-stack

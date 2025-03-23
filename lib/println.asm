@@ -1,12 +1,5 @@
-section .data
-	ln db 0xA
-	space db 0x20 
-	cle db 0x1B, "c"
-
 section .text
-	global println
-	global print
-	global clear
+	global println, print, clear, sleep
 
 println:
 	
@@ -88,5 +81,19 @@ clear:
 	syscall
 
 	RET
+
+sleep:
+	MOV rsi, 0
+	MOV rax, 35
+	syscall
+	
+	RET
+
+
+section .data
+	ln db 0xA
+	space db 0x20 
+	cle db 0x1B, "c"
+
 
 section .note.GNU-stack

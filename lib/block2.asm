@@ -1,10 +1,6 @@
-section .data
-	rect_ln db 0xA
-	space db 0x20
-
 section .text
-	;global line
-	global rect
+	global line, rect 
+	extern up, down, left, right
 
 rect:
 
@@ -49,7 +45,7 @@ rect:
 
 	POP rax
 
-	.Ret
+	.Ret:
 	RET
 
 line:
@@ -60,40 +56,17 @@ line:
 	PUSH r8
 	PUSH rdi
 
-	CMP rbx, 0
-	JE .StartX
+	MOV rdi, rbx
+	CALL down
 	
-	.loopY:
-	MOV rax, 1
-	MOV rdi, 1
-	MOV rsi, rect_ln
-	MOV rdx, 1
-	syscall
-
-	DEC rbx
-	CMP rbx, 0
-	JNE .loopY
-
 	.StartX:
 	
-	POP rax
+	POP rdi
 
-	CMP rax, 0
+	CMP rdi, 0
 	JE .StartChar
 
-	.loopX:
-	PUSH rax
-
-	MOV rax, 1
-	MOV rdi, 1
-	MOV rsi, space
-	MOV rdx, 1
-	syscall	
-
-	POP rax
-	DEC rax
-	CMP rax, 0
-	JNE .loopX
+	CALL right
 	
 	.StartChar:
 	POP rsi
@@ -123,5 +96,9 @@ line:
 
 	.Ret:
 	RET
+
+section .data
+	rect_ln db 0xA
+	space db 0x20
 
 section .note.GNU-stack
