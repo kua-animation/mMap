@@ -1,7 +1,7 @@
 section .text
 	global _start
-	extern println, print, clear, rect, line, sleep
-	extern up, down, left, right
+	extern set_X_Y, print, clear, rect, sleep
+	extern up, down, left, right, clear_rect, reset
 
 _start:
 
@@ -46,25 +46,18 @@ _start:
 	CALL rect
 	
 	MOV rdi, 3
-	MOV rsi, 0
+	MOV rsi, 5
 	MOV rdx, 2
 	MOV rcx, 1
 	MOV r8, mes
 	CALL rect
 
 	MOV rdi, 1
-	MOV rsi, 0
+	MOV rsi, 6
 	MOV rdx, 6
 	MOV rcx, 4
 	MOV r8, mes
 	CALL rect
-
-	MOV rdi, 2
-	MOV rsi, 0
-	MOV rdx, 4
-	MOV rcx, 1
-	MOV r8, mes
-	CALL line
 
 	MOV rdi, delay
 	CALL sleep
@@ -76,9 +69,11 @@ _start:
 	MOV rsi, 0
 	MOV rdx, 4
 	MOV rcx, 8
-	MOV r8, a
-	CALL rect
+	CALL clear_rect
 
+	MOV rdi, 0
+	MOV rsi, 10
+	CALL set_X_Y
 
 end_program:
 	MOV rax, 60 
@@ -89,7 +84,6 @@ section .data
 	Char db "Dialog/char.txt", 0
 	messig db "Dialog/di.txt", 0
 	delay dq 0, 700000000
-	a db 0x41
 
 section .bss
 	mes resb 4

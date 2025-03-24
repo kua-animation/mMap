@@ -1,44 +1,5 @@
 section .text
-	global println, print, clear, sleep
-
-println:
-	
-	PUSH rdi
-	MOV rbx, rsi
-
-	CMP rbx, 0
-	JE loop2
-
-	loop1:
-
-	MOV rax, 1
-	MOV rdi, 1
-	MOV rsi, ln 
-	MOV rdx, 1
-	syscall
-
-	DEC rbx
-	JNZ loop1
-
-	POP rbx
-
-	CMP rbx, 0
-	JE return
-
-	loop2:
-	
-	MOV rax, 1
-	MOV rdi, 1
-	MOV rsi, space 
-	MOV rdx, 1
-	syscall
-
-	DEC rbx 
-	JNZ loop2
-
-	return:
-
-	RET
+	global print, clear, sleep
 
 print:
 	PUSH rbp

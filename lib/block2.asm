@@ -1,6 +1,6 @@
 section .text
-	global line, rect 
-	extern up, down, left, right
+	global rect 
+	extern up, down, left, right, reset
 
 rect:
 
@@ -45,7 +45,9 @@ rect:
 
 	POP rax
 
+
 	.Ret:
+	CALL reset
 	RET
 
 line:
